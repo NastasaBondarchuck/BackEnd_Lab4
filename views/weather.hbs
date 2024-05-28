@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="http://localhost/styles.css">
+</head>
+<body>
+    {{> header}}
+
+    <div class="container">
+        <div class="weather-card">
+            <div id="weather-container"  class="weather-info">
+                <p class="loading">Loading...</p>
+            </div>
+            <button onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    {{> footer}}
+
+    <script>
+        function getWeather(city) {
+            const API_KEY = '7119cccd731b2966469c3cd53a767bfc';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    displayWeather(data);
+                })
+                .catch(error => console.log('Error fetching weather:', error));
+        }
+
+        function displayWeather(data) {
+            const weatherContainer = document.getElementById('weather-container');
+            const weatherInfo = `
+                <h1>${data.name}, ${data.sys.country}</h1>
+                <p>Temperature: ${data.main.temp}°C</p>
+                <p>Description: ${data.weather[0].description}</p>
+                <p>Humidity: ${data.main.humidity}%</p>
+                <p>Wind Speed: ${data.wind.speed} m/s</p>
+            `;
+            weatherContainer.innerHTML = weatherInfo;
+        }
+
+        window.onload = function() {
+            const city = "{{ city }}";
+            if (city) {
+                getWeather(city);
+            }
+        };
+
+        function goBack() {
+            window.location.href = '../'; // ./ or ../
+        }
+    </script>
+</body>
+</html>

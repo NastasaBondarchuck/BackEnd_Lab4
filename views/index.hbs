@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities</title>
+    <link rel="stylesheet" href="http://localhost/styles.css">
+</head>
+<body>
+    {{> header}}
+
+    <div class="container">
+        <h1>Choose a City</h1>
+        <div class="button-container">
+            <button onclick="redirectToWeatherPage('Kyiv')">Kyiv</button>
+            <button onclick="redirectToWeatherPage('Lviv')">Lviv</button>
+            <button onclick="redirectToWeatherPage('Odesa')">Odesa</button>
+            <button onclick="redirectToWeatherPage('Zhytomyr')">Zhytomyr</button>
+            <button onclick="redirectToWeatherPage('Mykolaiv')">Mykolaiv</button>
+        </div>
+    </div>
+
+    {{> footer}}
+
+    <script>
+        function redirectToWeatherPage(city) {
+            window.location.href = `weather/${city}`;
+        }
+    </script>
+</body>
+</html>
